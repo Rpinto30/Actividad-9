@@ -64,6 +64,16 @@ def delete_movie():
         else: print("-"*50+"\n  ◇ Lo siento, no encontramos la pelicula")
     else: print("-"*50+"\n  ◇ Lo siento, no encontramos ninguna pelicula registrada")
 
+def stadistics():
+    print("-" * 25 + "ESTADISTICAS DEL SISTEMA" + "-" * 25)
+    print(f"  ● Existen {len(movies)} peliculas registradas a la plataforma")
+    print("┌"+"─"*50+"┐")
+    print(f"{'':<12}{'Genero':<20}{'Cantidad'}")
+    for mov in movies:
+        pass
+    print("└" + "─"* 50 + "┘")
+    print(f"  ● La p")
+
 while True:
     print("-"*20+"METFLIX"+"-"*20)
     print(" 1)Agregar pelicula\n 2)Mostrar todas las peliculas\n 3)Buscar pelicula por género\n 4)Eliminar una pelicula por titulo\n 5)Ver estradísticas del cátalogo\n 6)Salir")
@@ -73,7 +83,7 @@ while True:
         case '2': show_movies()
         case '3': show_movies_genre()
         case '4': delete_movie()
-        case '5': pass
+        case '5': stadistics()
         case '6':
             print("\n ▢  ¡¡¡Hasta luego!!!")
             break
