@@ -1,4 +1,4 @@
-movies = [['Spiderman',2004,'Acción'],['Spiderman II',2006,'Acción'], ['Leones', 2025, 'Documental']]
+movies = []
 
 genres = ['Acción', 'Drama', 'Comedia', 'Terror', 'Ciencia Ficción', 'Animación', 'Documental']
 error_mesagge = '-'*50+'\n'+"✖"*5+"   Lo siento, intentelo nuevamente   "+"✖"*5
@@ -31,13 +31,13 @@ def set_movie():
 def show_movies():
     if len(movies) > 0:
         print("-"*20+"TODAS LAS PELICULAS REGISTRADAS"+"-"*20)
-        print(f"{'No':<5}{'Titulo':<30}{'Año de publicación':<20}{'Genero':<20}")
-        for i,movie in enumerate(movies): print(f"{i+1:<5}{movie[0]:<30}{movie[1]:<20}{movie[2]:<20}")
+        print(f"{'No':<5}{'Titulo':50}{'Año de publicación':<20}{'Genero':<20}")
+        for i,movie in enumerate(movies): print(f"{i+1:<5}{movie[0]:<50}{movie[1]:<20}{movie[2]:<20}")
     else: print("-"*50+"\n  ◇ Lo siento, no encontramos ninguna pelicula registrada")
 
 def show_movies_genre():
-    print("-"*20+"TODAS LOS GENEROS REGISTRADOS"+"-"*20)
     if len(movies) > 0:
+        print("-" * 20 + "TODAS LOS GENEROS REGISTRADOS" + "-" * 20)
         for i,j in enumerate(genres): print(f"  {i+1}) {j}")
         while True:
             movie_genre = input_integer("▶  Ingresa el genero de la película: ")
@@ -46,9 +46,9 @@ def show_movies_genre():
 
         if any(mov[2] == genres[movie_genre-1] for mov in movies): #Any para verificar si al menos hay una pelicula registrada al genero
             print("-"*20+f"TODAS LAS PELICULAS DE {genres[movie_genre-1].upper()}"+"-"*20)
-            print(f"{'No':<5}{'Titulo':<30}{'Año de publicación':<20}")
-            for i,movie in enumerate(movies):
-                if movie[2] == genres[movie_genre-1]:print(f"{i+1:<5}{movie[0]:<30}{movie[1]:<20}")
+            print(f"{'Titulo':<30}{'Año de publicación':<20}")
+            for movie in movies:
+                if movie[2] == genres[movie_genre-1]:print(f"{movie[0]:<30}{movie[1]:<20}")
         else: print("-"*50+f"\n  ◇ Lo siento, no encontramos ninguna pelicula de {genres[movie_genre-1].lower()} registrada")
     else: print("-"*50+"\n  ◇ Lo siento, no encontramos ninguna pelicula registrada")
 
@@ -66,17 +66,30 @@ def delete_movie():
 
 def stadistics():
     print("-" * 25 + "ESTADISTICAS DEL SISTEMA" + "-" * 25)
+    older = []
+    old_year =0
+    if len(movies) > 0:
+        old_year =movies[0][1]
+        older = movies[0]
+
     print(f"  ● Existen {len(movies)} peliculas registradas a la plataforma")
-    print("┌"+"─"*50+"┐")
-    print(f"{'':<12}{'Genero':<20}{'Cantidad'}")
-    for mov in movies:
-        pass
-    print("└" + "─"* 50 + "┘")
-    print(f"  ● La p")
+    print("  ● Cantidad de peliculas según su genero:")
+    print("┌"+"─"*35+"┐")
+    print("│"+f"{'':<5}{'Genero':<20}{'Cantidad':<10}"+"│")
+    for gen in genres:
+        count = 0
+        for mov in movies:
+            if old_year > mov[1]:
+                older = mov
+                old_year=mov[1]
+            if mov[2] == gen: count+=1
+        print("│"+f"{'':<5}{gen:<20}{count:<10}"+"│")
+    print("└" + "─"* 35+ "┘")
+    if len(movies) > 0: print(f"  ● La pelicula más vieja del catalogo es: {older[0]} del año {older[1]}")
 
 while True:
     print("-"*20+"METFLIX"+"-"*20)
-    print(" 1)Agregar pelicula\n 2)Mostrar todas las peliculas\n 3)Buscar pelicula por género\n 4)Eliminar una pelicula por titulo\n 5)Ver estradísticas del cátalogo\n 6)Salir")
+    print(" 1) Agregar pelicula\n 2) Mostrar todas las peliculas\n 3) Buscar pelicula por género\n 4) Eliminar una pelicula\n 5) Ver estradísticas del cátalogo\n 6) Salir")
     op = input('▶  Ingrese una de las opciones: ')
     match op:
         case '1': set_movie()
