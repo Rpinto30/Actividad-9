@@ -1,4 +1,4 @@
-movies = [['Spiderman',2004,'Acción']]
+movies = [['Spiderman',2004,'Acción'],['Spiderman II',2006,'Acción'], ['Leones', 2025, 'Documental']]
 
 genres = ['Acción', 'Drama', 'Comedia', 'Terror', 'Ciencia Ficción', 'Animación', 'Documental']
 error_mesagge = "✖"*5+"   Lo siento, intentelo nuevamente   "+"✖"*5
@@ -35,6 +35,25 @@ def show_movies():
         for i,movie in enumerate(movies): print(f"{i+1:<5}{movie[0]:<30}{movie[1]:<20}{movie[2]:<20}")
     else: print("-"*50+"\n  ◇ Lo siento, no encontramos ninguna pelicula registrada")
 
+def show_movies_genre():
+    print("-"*50)
+    if len(movies) > 0:
+        for i,j in enumerate(genres): print(f"  {i+1}) {j}")
+        while True:
+            movie_genre = input_integer("▶  Ingresa el genero de la película: ")
+            if  0 < movie_genre <= len(genres): break
+            else: print(error_mesagge)
+
+        if any(mov[2] == genres[movie_genre-1] for mov in movies): #Any para verificar si al menos hay una pelicula registrada al genero
+            print("-"*20+f"TODAS LAS PELICULAS DE {genres[movie_genre-1].upper()}"+"-"*20)
+            print(f"{'No':<5}{'Titulo':<30}{'Año de publicación':<20}{'Genero':<20}")
+            for i,movie in enumerate(movies):
+                if movie[2] == genres[movie_genre-1]:print(f"{i+1:<5}{movie[0]:<30}{movie[1]:<20}{movie[2]:<20}")
+        else: print("-"*50+f"\n  ◇ Lo siento, no encontramos ninguna pelicula de {genres[movie_genre-1].lower()} registrada")
+    else: print("-"*50+"\n  ◇ Lo siento, no encontramos ninguna pelicula registrada")
+
+def delete_movie():
+    pass
 
 while True:
     print("-"*20+"METFLIX"+"-"*20)
@@ -43,11 +62,10 @@ while True:
     match op:
         case '1': set_movie()
         case '2': show_movies()
-        case '3': pass
+        case '3': show_movies_genre()
         case '4': pass
         case '5': pass
         case '6':
-            print(movies)
             print("\n ▢  ¡¡¡Hasta luego!!!")
             break
         case _: print(error_mesagge)
