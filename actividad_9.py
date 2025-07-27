@@ -1,7 +1,7 @@
 movies = [['Spiderman',2004,'Acción'],['Spiderman II',2006,'Acción'], ['Leones', 2025, 'Documental']]
 
 genres = ['Acción', 'Drama', 'Comedia', 'Terror', 'Ciencia Ficción', 'Animación', 'Documental']
-error_mesagge = "✖"*5+"   Lo siento, intentelo nuevamente   "+"✖"*5
+error_mesagge = '-'*50+'\n'+"✖"*5+"   Lo siento, intentelo nuevamente   "+"✖"*5
 
 def input_integer(message): #INGRESAR UN ENTERO Y VERIFICAR QUE SU ENTRADA SEA VALIDA
     while True:
@@ -46,19 +46,23 @@ def show_movies_genre():
 
         if any(mov[2] == genres[movie_genre-1] for mov in movies): #Any para verificar si al menos hay una pelicula registrada al genero
             print("-"*20+f"TODAS LAS PELICULAS DE {genres[movie_genre-1].upper()}"+"-"*20)
-            print(f"{'No':<5}{'Titulo':<30}{'Año de publicación':<20}{'Genero':<20}")
+            print(f"{'No':<5}{'Titulo':<30}{'Año de publicación':<20}")
             for i,movie in enumerate(movies):
-                if movie[2] == genres[movie_genre-1]:print(f"{i+1:<5}{movie[0]:<30}{movie[1]:<20}{movie[2]:<20}")
+                if movie[2] == genres[movie_genre-1]:print(f"{i+1:<5}{movie[0]:<30}{movie[1]:<20}")
         else: print("-"*50+f"\n  ◇ Lo siento, no encontramos ninguna pelicula de {genres[movie_genre-1].lower()} registrada")
     else: print("-"*50+"\n  ◇ Lo siento, no encontramos ninguna pelicula registrada")
 
 def delete_movie():
-    print("-" * 25 + "BORRAR PELICULA REGISTRADA" + "-" * 25)
-    for name in movies: print(f"  ● {name[0]}")
-    movie_name = input("▶  Ingresa el nombre de la película que deseas eliminar(verifica que sea el nombre exacto): ").lower()
-    if any(movie[0] == movie_name for movie in movies):
-        pass
-    else: print("-"*50+"\n  ◇ Lo siento, no encontramos la pelicula")
+    if len(movies) > 0:
+        print("-" * 25 + "BORRAR PELICULA REGISTRADA" + "-" * 25)
+        for i,name in enumerate(movies): print(f"  {i+1}) {name[0]}")
+        movie_name = input_integer("▶  Selecciona la pelicula que deseas eliminar: ")
+
+        if 0 <= movie_name <= len(movies):
+            movies.remove(movies[movie_name-1])
+            print("-"*50+"\nLa pelicula fue eliminada correctamente!")
+        else: print("-"*50+"\n  ◇ Lo siento, no encontramos la pelicula")
+    else: print("-"*50+"\n  ◇ Lo siento, no encontramos ninguna pelicula registrada")
 
 while True:
     print("-"*20+"METFLIX"+"-"*20)
@@ -68,7 +72,7 @@ while True:
         case '1': set_movie()
         case '2': show_movies()
         case '3': show_movies_genre()
-        case '4': pass
+        case '4': delete_movie()
         case '5': pass
         case '6':
             print("\n ▢  ¡¡¡Hasta luego!!!")
