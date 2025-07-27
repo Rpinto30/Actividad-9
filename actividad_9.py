@@ -36,7 +36,7 @@ def show_movies():
     else: print("-"*50+"\n  ◇ Lo siento, no encontramos ninguna pelicula registrada")
 
 def show_movies_genre():
-    print("-"*50)
+    print("-"*20+"TODAS LOS GENEROS REGISTRADOS"+"-"*20)
     if len(movies) > 0:
         for i,j in enumerate(genres): print(f"  {i+1}) {j}")
         while True:
@@ -53,7 +53,12 @@ def show_movies_genre():
     else: print("-"*50+"\n  ◇ Lo siento, no encontramos ninguna pelicula registrada")
 
 def delete_movie():
-    pass
+    print("-" * 25 + "BORRAR PELICULA REGISTRADA" + "-" * 25)
+    for name in movies: print(f"  ● {name[0]}")
+    movie_name = input("▶  Ingresa el nombre de la película que deseas eliminar(verifica que sea el nombre exacto): ").lower()
+    if any(movie[0] == movie_name for movie in movies):
+        pass
+    else: print("-"*50+"\n  ◇ Lo siento, no encontramos la pelicula")
 
 while True:
     print("-"*20+"METFLIX"+"-"*20)
